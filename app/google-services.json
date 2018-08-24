@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "484641881506",
+    "firebase_url": "https://messengger-43c9f.firebaseio.com",
+    "project_id": "messengger-43c9f",
+    "storage_bucket": "messengger-43c9f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:484641881506:android:4348a1455a9c216a",
+        "android_client_info": {
+          "package_name": "com.example.yusufwisnup.thirdkotlin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "484641881506-v078a544hdq0tn4q9q80pi7huhgr9dgl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.yusufwisnup.thirdkotlin",
+            "certificate_hash": "62e952e86d4fd50839ec9206ca6fb35c2151ca96"
+          }
+        },
+        {
+          "client_id": "484641881506-s9jublva048k8676omt989fbsa4adca5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJakCuQhAVVSmhAXdMaBxIQxCOJlicBm8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "484641881506-s9jublva048k8676omt989fbsa4adca5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
