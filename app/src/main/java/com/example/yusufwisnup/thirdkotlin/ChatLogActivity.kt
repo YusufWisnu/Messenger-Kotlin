@@ -5,7 +5,9 @@ import android.content.Intent
 import android.hardware.input.InputManager
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
@@ -28,7 +30,16 @@ class ChatLogActivity : AppCompatActivity()
         recycleview_chatlog.adapter = adapter
         toUser = intent.getParcelableExtra<User>(NewMessageActivity.USER_KEY)
         supportActionBar?.title = toUser?.nama
+
+        adapter.setOnItemLongClickListener { item, view ->
+            val dialog = AlertDialog.Builder(this)
+            val dialogview = LayoutInflater.from(this).inflate(R.layout.alertdialog_chat_log, null)
+            dialog.setView(dialogview)
+            dialog.show()
+            return@setOnItemLongClickListener true
+        }
         listenForMessage()
+
 
         send_button_chatlog.setOnClickListener {
             perfomSendMessage()
@@ -39,6 +50,7 @@ class ChatLogActivity : AppCompatActivity()
         val fromId = FirebaseAuth.getInstance().uid
         val toid = toUser?.uid
         val ref = FirebaseDatabase.getInstance().getReference("/user-messages/$fromId/$toid")
+        ref.keepSynced(false)
         ref.addChildEventListener(object : ChildEventListener{
             override fun onChildAdded(p0: DataSnapshot, p1: String?)
             {
@@ -85,6 +97,8 @@ class ChatLogActivity : AppCompatActivity()
         val toid = user.uid
         val reference = FirebaseDatabase.getInstance().getReference("/user-messages/$fromid/$toid").push()
         val toReference = FirebaseDatabase.getInstance().getReference("/user-messages/$toid/$fromid").push()
+        reference.keepSynced(false)
+        toReference.keepSynced(false)
         if(fromid == null)return
 
             val chatMessage = ChatMessage(reference.key!!, teks, fromid, toid, System.currentTimeMillis() / 1000)
@@ -101,10 +115,15 @@ class ChatLogActivity : AppCompatActivity()
 
         val latestMessageRef = FirebaseDatabase.getInstance().getReference("/latest_messages/$fromid/$toid")
         val latestMessagetoRef = FirebaseDatabase.getInstance().getReference("/latest_messages/$toid/$fromid")
+        latestMessageRef.keepSynced(false)
+        latestMessagetoRef.keepSynced(false)
         latestMessageRef.setValue(chatMessage)
         latestMessagetoRef.setValue(chatMessage)
     }
 
+    private fun showAlert_from_row(){
+        Toast.makeText(this, "succesfully long click", Toast.LENGTH_SHORT).show()
+    }
     companion object
     {
         val TAG = "ChatLog"

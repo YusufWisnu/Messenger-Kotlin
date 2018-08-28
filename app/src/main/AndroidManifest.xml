@@ -2,11 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.yusufwisnup.thirdkotlin">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNETr"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:name=".MessengerApp"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
@@ -34,6 +37,13 @@
             android:name="android.support.PARENT_ACTIVITY"
             android:value=".HomeActivity"/>
         </activity>
+        <receiver
+            android:name=".CheckInternet"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

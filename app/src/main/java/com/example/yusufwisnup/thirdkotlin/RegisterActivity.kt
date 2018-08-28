@@ -1,6 +1,7 @@
 package com.example.yusufwisnup.thirdkotlin
 
 import android.app.Activity
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.BitmapDrawable
@@ -14,6 +15,7 @@ import android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
 import android.text.method.PasswordTransformationMethod
 import android.util.Log
 import android.widget.CompoundButton
+import android.widget.ProgressBar
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
@@ -56,19 +58,21 @@ class RegisterActivity : AppCompatActivity()
             {
                 Toast.makeText(this, "Password must contains number", Toast.LENGTH_SHORT).show()
             }else{
+                val progresbar : ProgressDialog = ProgressDialog.show(this, "Registration","Please Wait")
                 FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, pwd)
                         .addOnCompleteListener {
                             if (!it.isSuccessful) return@addOnCompleteListener
-
+                            progresbar.hide()
                             uploadImagetoFirebaseStorage()
                             Toast.makeText(this, "Account was Successfully Created", Toast.LENGTH_SHORT).show()
-                            Log.d("Main", "UID: ${it.result.user.uid}")
+                            //Log.d("Main", "UID: ${it.result.user.uid}")
                             i = Intent(this, MainActivity::class.java)
                             i.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
                             startActivity(i)
 
                         }
                         .addOnFailureListener {
+                            progresbar.hide()
                             Toast.makeText(this, "Failed to Create User", Toast.LENGTH_SHORT).show()
                         }
             }
